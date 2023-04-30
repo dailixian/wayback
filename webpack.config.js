@@ -1,10 +1,9 @@
 const path = require('path');
 const os = require('os');
 const package = require('./package.json');
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HtmlWebPackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
-const OptimizeCSSAssets = require('optimize-css-assets-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 const ArcGISPlugin = require('@arcgis/webpack-plugin');
@@ -13,32 +12,25 @@ const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const computerName = os.hostname();
 
 /**
- * the App ID `WaybackImagery` of this app only works with `arcgis.com` domain, 
+ * the App ID `WaybackImagery` of this app only works with `arcgis.com` domain,
  * therefore I need to run the webpack dev server using the host name below `${computerName}.arcgis.com` instead of `localhost`.
- * 
+ *
  * You should update `appId` in `./src/app-config.ts` to use your onw App ID.
  */
-const hostname = computerName.includes('Esri') 
-    ? `${computerName}.arcgis.com` 
+const hostname = computerName.includes('Esri')
+    ? `${computerName}.arcgis.com`
     : 'localhost';
 
-const {
-    title,
-    author,
-    keywords,
-    description,
-    homepage
-} = package;
+const { title, author, keywords, description, homepage } = package;
 
-module.exports = (env, options)=> {
-
+module.exports = (env, options) => {
     const devMode = options.mode === 'development' ? true : false;
 
     return {
         devServer: {
             https: true,
             host: hostname,
-            allowedHosts: "all"
+            allowedHosts: 'all',
         },
         entry: path.resolve(__dirname, './src/index.tsx'),
         output: {
@@ -49,82 +41,85 @@ module.exports = (env, options)=> {
         },
         devtool: devMode ? 'source-map' : false,
         resolve: {
-            extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
+            extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
         },
         module: {
             rules: [
                 {
                     test: /\.(ts|tsx)$/,
-                    loader: 'babel-loader'
+                    loader: 'babel-loader',
                 },
                 {
                     test: /\.html$/,
-                    use: [ 
+                    use: [
                         {
-                            loader: "html-loader",
-                            options: { 
-                                minimize: true
-                            }
-                        }
-                    ]
+                            loader: 'html-loader',
+                            options: {
+                                minimize: true,
+                            },
+                        },
+                    ],
                 },
                 {
                     test: /\.s?[ac]ss$/,
                     use: [
                         devMode ? 'style-loader' : MiniCssExtractPlugin.loader,
                         {
-                            loader: "css-loader", options: {
-                                sourceMap: true
-                            }
-                        }, {
-                            loader: "sass-loader", options: {
-                                sourceMap: true
-                            }
-                        }
-                    ]
+                            loader: 'css-loader',
+                            options: {
+                                sourceMap: true,
+                            },
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                sourceMap: true,
+                            },
+                        },
+                    ],
                 },
-                { 
-                    test: /\.(woff|woff2|ttf|eot)$/,  
-                    loader: "file-loader" 
+                {
+                    test: /\.(woff|woff2|ttf|eot)$/,
+                    loader: 'file-loader',
                 },
                 // { test: /\.svg$/,  loader: "url-loader?limit=10000&mimetype=image/svg+xml" },
-                { 
-                    test: /\.svg$/,  
-                    loader: "url-loader",
+                {
+                    test: /\.svg$/,
+                    loader: 'url-loader',
                     options: {
                         limit: 10000,
                         fallback: {
-                            loader: "file-loader"
-                        }
-                    }
+                            loader: 'file-loader',
+                        },
+                    },
                 },
                 // { test: /\.(png|jpg|gif)$/,  loader: "file-loader" },
-                {   
-                    test: /\.(png|jpg|gif)$/,  
-                    loader: "url-loader",
+                {
+                    test: /\.(png|jpg|gif)$/,
+                    loader: 'url-loader',
                     options: {
                         limit: 10000,
                         fallback: {
-                            loader: "file-loader"
-                        }
-                    }
+                            loader: 'file-loader',
+                        },
+                    },
                 },
-            ]
+            ],
         },
         plugins: [
             new ForkTsCheckerWebpackPlugin(),
             // copy static files from public folder to build directory
             new CopyPlugin({
                 patterns: [
-                    { 
-                        from: "public/**/*", 
+                    {
+                        from: 'public/**/*',
                         globOptions: {
-                            ignore: ["**/index.html"],
+                            ignore: ['**/index.html'],
                         },
-                    }
+                    },
                 ],
             }),
-            // new ArcGISPlugin({ 
+            // new ArcGISPlugin({
             //     locales: ['en'],
             //     features: {
             //         "3d": false
@@ -139,35 +134,37 @@ module.exports = (env, options)=> {
                     title,
                     description,
                     author,
-                    keywords: Array.isArray(keywords) 
-                        ? package.keywords.join(',') 
+                    keywords: Array.isArray(keywords)
+                        ? package.keywords.join(',')
                         : undefined,
                     'og:title': title,
                     'og:description': description,
                     'og:url': homepage,
                 },
                 minify: {
-                    html5                          : true,
-                    collapseWhitespace             : true,
-                    minifyCSS                      : true,
-                    minifyJS                       : true,
-                    minifyURLs                     : false,
-                    removeComments                 : true,
-                    removeEmptyAttributes          : true,
-                    removeOptionalTags             : true,
-                    removeRedundantAttributes      : true,
-                    removeScriptTypeAttributes     : true,
-                    removeStyleLinkTypeAttributese : true,
-                    useShortDoctype                : true
-                }
+                    html5: true,
+                    collapseWhitespace: true,
+                    minifyCSS: true,
+                    minifyJS: true,
+                    minifyURLs: false,
+                    removeComments: true,
+                    removeEmptyAttributes: true,
+                    removeOptionalTags: true,
+                    removeRedundantAttributes: true,
+                    removeScriptTypeAttributes: true,
+                    removeStyleLinkTypeAttributese: true,
+                    useShortDoctype: true,
+                },
             }),
             new MiniCssExtractPlugin({
                 // Options similar to the same options in webpackOptions.output
                 // both options are optional
                 filename: devMode ? '[name].css' : '[name].[contenthash].css',
-                chunkFilename: devMode ? '[name].css' : '[name].[contenthash].css',
+                chunkFilename: devMode
+                    ? '[name].css'
+                    : '[name].[contenthash].css',
             }),
-            new CleanWebpackPlugin()
+            new CleanWebpackPlugin(),
         ].filter(Boolean),
         optimization: {
             // splitChunks: {
@@ -190,12 +187,10 @@ module.exports = (env, options)=> {
                     terserOptions: {
                         compress: {
                             drop_console: true,
-                        }
-                    }
-                }), 
-                new OptimizeCSSAssets({})
-            ]
-        }
-    }
-
+                        },
+                    },
+                }),
+            ],
+        },
+    };
 };
