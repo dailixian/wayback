@@ -11,7 +11,7 @@ const TitleText = () => {
     return (
         <div className="text-center trailer-quarter">
             <span className="font-size-2 avenir-light trailer-0">
-                World Imagery <span className="text-white">Wayback</span>
+                CaseAtlas <span className="text-white">Wayback</span>
             </span>
         </div>
     );

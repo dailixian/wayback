@@ -1,1 +1,1 @@
-export const APP_TITLE = 'World Imagery Wayback';
+export const APP_TITLE = 'CaseAtlas Wayback';

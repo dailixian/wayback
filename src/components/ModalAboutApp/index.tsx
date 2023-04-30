@@ -57,7 +57,7 @@ const About:React.FC<IProps> = ({
                 </span>
 
                 <h2 className="trailer-half text-center trailer-1">
-                    World Imagery Wayback
+                    CaseAtlas Wayback
                 </h2>
                 <h5 className="">WHAT</h5>
                 <p>

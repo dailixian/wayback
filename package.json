@@ -1,8 +1,8 @@
 {
   "name": "world-imagery-wayback",
   "version": "1.0.0",
-  "title": "World Imagery Wayback",
-  "description": "Wayback imagery is a digital archive of the World Imagery basemap, enabling users to access different versions of World Imagery captured over the years. Each record in the archive represents World Imagery as it existed on the date new imagery was published. Wayback currently supports all updated versions of World Imagery dating back to February 20, 2014.",
+  "title": "CaseAtlas World Imagery Wayback",
+  "description": "CaseAtlas Wayback imagery is a digital archive of the World Imagery basemap, enabling users to access different versions of World Imagery captured over the years. Each record in the archive represents World Imagery as it existed on the date new imagery was published. Wayback currently supports all updated versions of World Imagery dating back to February 20, 2014.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
